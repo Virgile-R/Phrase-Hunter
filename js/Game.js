@@ -47,10 +47,6 @@ class Game {
       e.target.classList.add("wrong");
       this.missed++;
       this.removeLife();
-      if (this.missed >= 5) {
-        hasWon = false;
-        this.gameOver();
-      }
     } else {
       e.target.classList.add("chosen");
       this.activePhrase.showMatchedLetter(
@@ -68,13 +64,15 @@ class Game {
   removeLife() {
     const scoreBoardList =
       document.getElementById("scoreboard").firstElementChild;
-    if (this.missed <= 5) {
+    if (this.missed < 5) {
       scoreBoardList.children[
         scoreBoardList.children.length - this.missed
       ].firstElementChild.setAttribute("src", `images/lostHeart.png`);
-    } // else {
-    //   scoreBoardList.firstElementChild.firstElementChild.setAttribute("src", `images/lostHeart.png`);
-    // } //hacky but should work
+    } else {
+      hasWon = false
+      this.gameOver()
+
+    } 
   }
 
   /***
@@ -116,12 +114,15 @@ class Game {
 
     const gameOverMessage = document.getElementById("game-over-message");
     if (hasWon && streak > 0) {
+      overlay.className = "win"
       gameOverMessage.textContent = `🥳🥳 You Won! Your winning streak : ${streak} 🥳🥳`;
       streak++;
     } else if (hasWon) {
+      overlay.className = "win"
       gameOverMessage.textContent = `🥳🥳 You Won! Keep going! 🥳🥳`;
       streak++;
     } else {
+      overlay.className = "lose"
       gameOverMessage.textContent = "😱😱 Sorry, try again! 😱😱";
       streak = 0;
     }
