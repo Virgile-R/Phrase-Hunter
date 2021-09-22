@@ -68,13 +68,13 @@ class Game {
   removeLife() {
     const scoreBoardList =
       document.getElementById("scoreboard").firstElementChild;
-    if (this.missed <= 4) {
+    if (this.missed <= 5) {
       scoreBoardList.children[
-        scoreBoardList.children.length - (1 + this.missed)
-      ].style.display = "none";
-    } else {
-      scoreBoardList.firstElementChild.style.display = "none";
-    } //hacky but should work
+        scoreBoardList.children.length - this.missed
+      ].firstElementChild.setAttribute("src", `images/lostHeart.png`);
+    } // else {
+    //   scoreBoardList.firstElementChild.firstElementChild.setAttribute("src", `images/lostHeart.png`);
+    // } //hacky but should work
   }
 
   /***
@@ -108,7 +108,10 @@ class Game {
     });
     const lifeCounters = document.querySelectorAll(".tries");
     for (let i = 0; i < lifeCounters.length; i++) {
-      lifeCounters[i].removeAttribute("style");
+      lifeCounters[i].firstElementChild.setAttribute(
+        "src",
+        `images/liveHeart.png`
+      );
     }
 
     const gameOverMessage = document.getElementById("game-over-message");
