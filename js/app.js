@@ -13,8 +13,7 @@ const body = document.querySelector("body");
 /***
  *  Events listener
  */
-window.addEventListener("load", () => {
-  console.log("WTF");
+window.addEventListener("load", () => {  
   body.insertAdjacentHTML(
     "beforeend",
     `<div class ='credit'>Image by <a href="https://pixabay.com/users/azheer-17448000/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6528729">Reza Muhammad Fairuz</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=6528729">Pixabay</a></div>`
