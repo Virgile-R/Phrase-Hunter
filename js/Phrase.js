@@ -29,7 +29,11 @@ class Phrase {
    */
   checkLetter(letter) {
     const virtualKeys = Array.from(document.querySelectorAll(".letter"));
-    const matchingLetters = virtualKeys.filter(guessLetter => guessLetter.textContent === letter && this.phrase.includes(guessLetter.textContent));
+    const matchingLetters = virtualKeys.filter(
+      (guessLetter) =>
+        guessLetter.textContent === letter &&
+        this.phrase.includes(guessLetter.textContent)
+    );
     return matchingLetters;
   }
   /***

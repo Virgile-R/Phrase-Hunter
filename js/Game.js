@@ -12,8 +12,35 @@ class Game {
       "O tempora O Mores",
     ];
     this.activePhrase = null;
-    this.phraseToString = null;
   }
+  selectRandomBackground() {
+    const backgroundImages = [
+      {
+        url: "images/background/boat-5889919.png",
+        credit:
+          'Image by <a href="https://pixabay.com/users/lobsarts-19515294/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5889919">LOBS Arts</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5889919">Pixabay</a>',
+      },
+      {
+        url: "images/background/acorn-1292946.svg",
+        credit:
+          'Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1292946">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1292946">Pixabay</a>',
+      },
+      {
+        url: "images/background/background-1409125.svg",
+        credit:
+          'Image by <a href="https://pixabay.com/users/davidrockdesign-2595351/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1409125">DavidRockDesign</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1409125">Pixabay</a>',
+      },
+    ];
+    const randomBG =
+      backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+
+    const body = document.querySelector("body");
+    body.style.backgroundImage = `url('${randomBG.url}')`;
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+    document.querySelector(".credit").innerHTML = `${randomBG.credit}`;
+  }
+
   /***
    * Initialises a new game, selects a new Phrase at random and transforms it in a string format for convenience.
    */
@@ -21,7 +48,9 @@ class Game {
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
     this.activePhrase = new Phrase(this.getRandomPhrase(previousGamePhrase));
-    this.phraseToString = String(this.activePhrase.phrase);
+    gameActive = true;
+    previousGamePhrase = this.activePhrase.phrase;
+    this.selectRandomBackground();
     this.activePhrase.addPhraseToDisplay();
   }
   /***
@@ -34,7 +63,7 @@ class Game {
       nextPhrase =
         this.phrases[Math.floor(Math.random() * this.phrases.length)];
     }
-    previousGamePhrase = nextPhrase;
+
     return nextPhrase;
   }
   /***
@@ -42,21 +71,32 @@ class Game {
    * checks if the game is over, then display an appropriate message and restarts the game by calling this.gameOver()
    */
   handleInteraction(e) {
-    e.target.disabled = true;
-    if (!this.phraseToString.includes(e.target.textContent)) {
-      e.target.classList.add("wrong");
+    const keyboard = document.querySelectorAll(`.key`);
+    const keyEvent = e.type === "click" ? e.target.textContent : e.key;
+    const keyChosen = Array.from(keyboard).filter(
+      (key) => key.textContent === keyEvent
+    );
+
+    if (
+      !this.activePhrase.phrase.includes(keyChosen[0].textContent) &&
+      !keyChosen[0].disabled
+    ) {
+      keyChosen[0].disabled = true;
+      keyChosen[0].classList.add("wrong");
       this.missed++;
       this.removeLife();
-    } else {
-      e.target.classList.add("chosen");
+    } else if (!keyChosen[0].disabled) {
+      keyChosen[0].disabled = true;
+      keyChosen[0].classList.add("chosen");
       this.activePhrase.showMatchedLetter(
-        this.activePhrase.checkLetter(e.target.textContent)
+        this.activePhrase.checkLetter(keyChosen[0].textContent)
       );
       if (this.checkForWin()) {
         this.gameOver();
       }
     }
   }
+
   /***
    * Hides one visible life counter when the player guesses wrong.
    */
@@ -69,10 +109,9 @@ class Game {
         scoreBoardList.children.length - this.missed
       ].firstElementChild.setAttribute("src", `images/lostHeart.png`);
     } else {
-      hasWon = false
-      this.gameOver()
-
-    } 
+      hasWon = false;
+      this.gameOver();
+    }
   }
 
   /***
@@ -93,10 +132,10 @@ class Game {
    * Resets the game board and display an appropriate message for the player.
    */
   gameOver() {
+    gameActive = false;
     const overlay = document.getElementById("overlay");
     overlay.style.display = "";
     this.activePhrase = null;
-    this.phraseToString = null;
     const phraseDisplay = document.getElementById("phrase");
     phraseDisplay.firstElementChild.innerHTML = "";
     const virtualkeys = document.querySelectorAll(".key");
@@ -111,19 +150,26 @@ class Game {
         `images/liveHeart.png`
       );
     }
-
+    const credit = document.querySelector(".credit");
+    credit.innerHTML = "";
     const gameOverMessage = document.getElementById("game-over-message");
     if (hasWon && streak > 0) {
-      overlay.className = "win"
+      overlay.className = "win";
       gameOverMessage.textContent = `🥳🥳 You Won! Your winning streak : ${streak} 🥳🥳`;
+      credit.innerHTML =
+        'Image by <a href="https://pixabay.com/users/memed_nurrohmad-3307648/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1674886">Memed_Nurrohmad</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1674886">Pixabay</a>';
       streak++;
     } else if (hasWon) {
-      overlay.className = "win"
+      overlay.className = "win";
       gameOverMessage.textContent = `🥳🥳 You Won! Keep going! 🥳🥳`;
+      credit.innerHTML =
+        'Image by <a href="https://pixabay.com/users/memed_nurrohmad-3307648/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1674886">Memed_Nurrohmad</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1674886">Pixabay</a>';
       streak++;
     } else {
-      overlay.className = "lose"
+      overlay.className = "lose";
       gameOverMessage.textContent = "😱😱 Sorry, try again! 😱😱";
+      credit.innerHTML =
+        'Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=149344">OpenClipart-Vectors</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=149344">Pixabay</a>';
       streak = 0;
     }
   }

@@ -1,26 +1,26 @@
 /* Main styles */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300");
 
 /* Variables */
 
 :root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
+  --color-win: #78cf82;
+  --color-lose: #d94545;
   --color-start: #5b85b7;
   --color-neutral: #445069;
-  --color-neutral-light: #D2D2D2;
-  --color-keys: #37474F;
-  --color-keys-light: #E5E5E5;
+  --color-neutral-light: #a5a5a5;
+  --color-keys: #37474f;
+  --color-keys-light: #c9c9c9;
   --font-size-large: 60px;
   --font-size-medium: 20px;
-  --transition: all .2s ease-in-out;
+  --transition: all 0.2s ease-in-out;
 }
 
 /* main */
 
 * {
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -30,7 +30,9 @@ body {
   height: 100vh;
 }
 
-li, ol, ul {
+li,
+ol,
+ul {
   padding: 0;
   display: inline-block;
 }
@@ -40,16 +42,29 @@ h2 {
   text-transform: uppercase;
   font-size: var(--font-size-large);
   margin: 0;
+  color: rgb(156, 14, 45);
+  text-shadow: #d94545 1px 1px 10px;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 h1 {
   font-size: 30px;
+  color: rgb(156, 14, 45);
+  text-shadow: #d94545 1px 1px 10px;
 }
 
 button {
   margin: 6px;
   border: 1px solid transparent;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: var(--color-keys);
   font-size: var(--font-size-medium);
   background-color: var(--color-keys-light);
@@ -61,8 +76,8 @@ button {
 }
 
 #btn__reset {
-	width: 200px;
-	margin: 0 auto;
+  width: 200px;
+  margin: 0 auto;
 }
 
 .main-container {
@@ -79,16 +94,21 @@ button {
   padding: 10px;
 }
 
-#phrase ul li{
+#phrase ul li {
   margin-top: 15px;
 }
-
+.credit {
+  margin-left: 15px;
+  margin-bottom: 15px;
+  font-size: smaller;
+  z-index: 9999;
+}
 /* Title */
 
 .header {
-  color: #3a3f58;
+  color: rgb(156, 14, 45);
+  text-shadow: #d94545 1px 1px 10px;
 }
-
 
 /* Phrase */
 
@@ -107,8 +127,6 @@ button {
   width: 15px;
 }
 
-
-
 .show {
   color: #fff;
   background-color: #4ac0d5;
@@ -118,10 +136,9 @@ button {
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   border-radius: 5px;
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
 }
-
 
 /* Keyboard */
 
@@ -134,12 +151,12 @@ button {
   background: #3a3f58;
   border-radius: 5px;
   font-size: var(--font-size-medium);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .wrong {
   background: #f7a964;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .btn__reset {
@@ -149,8 +166,8 @@ button {
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
-  border-bottom: solid 4px rgba(0, 0, 0, .3);
-  border-right: solid 3px rgba(0, 0, 0, .3)
+  border-bottom: solid 4px rgba(0, 0, 0, 0.3);
+  border-right: solid 3px rgba(0, 0, 0, 0.3);
 }
 
 .btn__reset:active {
@@ -159,14 +176,13 @@ button {
   border-right: solid 3px rgba(0, 0, 0, 0);
 }
 
-
 /* Overlay */
 
 #overlay {
   display: flex;
   flex-direction: column;
   position: fixed;
-  color: #FFFFFF;
+  color: #ffffff;
   justify-content: center;
   top: 0;
   bottom: 0;
@@ -175,20 +191,32 @@ button {
   border-radius: 5px;
 }
 
-.title {
-  color: #FFF;
+.start .title {
+  color: rgb(156, 14, 45);
+  animation: fadein 2s;
 }
 
 .start {
   background-color: #3a3f58;
+  background-image: url("/images/background/geometric-6528729.png");
+  background-size: cover;
 }
 
 .start a {
   color: #fff;
 }
 
+
 .win {
-  background-color: var(--color-win);
+  background-color: #2a56e7;
+  background-image: url("/images/win/day-1674886.png");
+  background-size: cover;
+}
+.win h1 {
+  color: rgb(26, 196, 11);
+  font-weight: bolder;
+  text-shadow: #04cf1f 1px 1px 10px;
+  animation: fadein 2s;
 }
 
 .win a {
@@ -196,7 +224,12 @@ button {
 }
 
 .lose {
-  background-color: #f5785f;
+  background-image: url("/images/lose/clouds-149344.svg");
+  background-size: cover;
+  background-position: center;
+}
+.lose h1 {
+  animation: fadein 2s;
 }
 
 .lose a {
