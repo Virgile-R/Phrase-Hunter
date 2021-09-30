@@ -126,7 +126,10 @@ button {
 .space {
   width: 15px;
 }
-
+.hide {
+  font-size: 0px;
+  padding: 39px 1px 0 1px;
+}
 .show {
   color: #fff;
   background-color: #4ac0d5;
