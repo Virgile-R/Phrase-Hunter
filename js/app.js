@@ -37,6 +37,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keyup", () => {
   gameReady = true;
 });
