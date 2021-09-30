@@ -198,7 +198,7 @@ button {
 
 .start {
   background-color: #3a3f58;
-  background-image: url("/images/background/geometric-6528729.png");
+  background-image: url("../images/background/geometric-6528729.png");
   background-size: cover;
 }
 
@@ -209,7 +209,7 @@ button {
 
 .win {
   background-color: #2a56e7;
-  background-image: url("/images/win/day-1674886.png");
+  background-image: url("../images/win/day-1674886.png");
   background-size: cover;
 }
 .win h1 {
@@ -224,7 +224,7 @@ button {
 }
 
 .lose {
-  background-image: url("/images/lose/clouds-149344.svg");
+  background-image: url("../images/lose/clouds-149344.svg");
   background-size: cover;
   background-position: center;
 }
