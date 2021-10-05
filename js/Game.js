@@ -5,11 +5,11 @@ class Game {
   constructor() {
     this.missed = 0;
     this.phrases = [
-      "I am Programming Javascript",
-      "Hello World How Are You",
-      "Tell me something interesting",
-      "I like cats and dogs",
-      "O tempora O Mores",
+      new Phrase("I am Programming Javascript"),
+      new Phrase("Hello World How Are You"),
+      new Phrase("Tell me something interesting"),
+      new Phrase("I like cats and dogs"),
+      new Phrase("O tempora O Mores"),
     ];
     this.activePhrase = null;
   }
@@ -47,7 +47,7 @@ class Game {
   startGame() {
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
-    this.activePhrase = new Phrase(this.getRandomPhrase(previousGamePhrase));
+    this.activePhrase = this.getRandomPhrase(previousGamePhrase);
     gameActive = true;
     previousGamePhrase = this.activePhrase.phrase;
     this.selectRandomBackground();
@@ -76,21 +76,13 @@ class Game {
     const keyChosen = Array.from(keyboard).filter(
       (key) => key.textContent === keyEvent
     );
-
-    if (
-      !this.activePhrase.phrase.includes(keyChosen[0].textContent) &&
-      !keyChosen[0].disabled
-    ) {
-      keyChosen[0].disabled = true;
+    keyChosen[0].disabled = true;
+    if (!this.activePhrase.checkLetter(keyChosen[0].textContent)) {
       keyChosen[0].classList.add("wrong");
-      this.missed++;
       this.removeLife();
-    } else if (!keyChosen[0].disabled) {
-      keyChosen[0].disabled = true;
+    } else {
       keyChosen[0].classList.add("chosen");
-      this.activePhrase.showMatchedLetter(
-        this.activePhrase.checkLetter(keyChosen[0].textContent)
-      );
+      this.activePhrase.showMatchedLetter(keyChosen[0].textContent);
       if (this.checkForWin()) {
         this.gameOver();
       }
@@ -98,10 +90,11 @@ class Game {
   }
 
   /***
-   * Hides one visible life counter when the player guesses wrong.
+   * Hides one visible life counter when the player guesses wrong and increases the missed property.
    */
 
   removeLife() {
+    this.missed++;
     const scoreBoardList =
       document.getElementById("scoreboard").firstElementChild;
     if (this.missed < 5) {

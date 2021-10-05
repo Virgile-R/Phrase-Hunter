@@ -24,25 +24,24 @@ class Phrase {
     });
   }
   /***
-   * takes a string containing a letter, returns an array with all elements matching the letter
-   * check if the letter inputed is present in the phrase,
+   * 
+   * check if the letter inputed by the player is present in the phrase, returns true if this is the case
    */
   checkLetter(letter) {
-    const virtualKeys = Array.from(document.querySelectorAll(".letter"));
-    const matchingLetters = virtualKeys.filter(
-      (guessLetter) =>
-        guessLetter.textContent === letter &&
-        this.phrase.includes(guessLetter.textContent)
-    );
-    return matchingLetters;
+   
+    if (this.phrase.includes(letter)){
+      return true
+    }
   }
   /***
-   * takes an array of element containing elements to be reveled
+   * takes a letter inputed by the player
    * revels the elements by giving them the class show.
    */
-  showMatchedLetter(matchingLetters) {
-    matchingLetters.map((letter) => {
-      letter.className = `show letter ${letter.textContent}`;
-    });
+  showMatchedLetter(letter) {
+    const letterEl = Array.from(document.querySelectorAll(`.${letter}`))
+    letterEl.map((letter) => {
+    letter.className = `show letter ${letter}`;
+    }
+    )} 
   }
-}
+
