@@ -31,10 +31,15 @@ document.getElementById("qwerty").addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
+
   if (gameReady && /[A-z]/.test(e.key) && gameActive) {
+    const keyChosen = Array.from(document.querySelectorAll(`.key`)).filter(key => key.textContent === e.key )
+    if (!keyChosen[0].disabled) {
     gameReady = false;
     game.handleInteraction(e);
-  }
+   
+  } 
+  } 
 });
 
 document.addEventListener("keyup", () => {

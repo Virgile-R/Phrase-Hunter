@@ -83,10 +83,12 @@ class Game {
     } else {
       keyChosen[0].classList.add("chosen");
       this.activePhrase.showMatchedLetter(keyChosen[0].textContent);
+      
       if (this.checkForWin()) {
         this.gameOver();
       }
     }
+    
   }
 
   /***
